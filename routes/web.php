@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'ReservationController@index');
+Route::post('/getMaids', 'ReservationController@getMaids');

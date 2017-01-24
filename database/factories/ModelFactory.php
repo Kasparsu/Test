@@ -21,3 +21,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Maid::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->name,
+        'email' => $faker->unique()->safeEmail,
+        'phone' => $faker->phoneNumber,
+        'rate' => $faker->randomFloat(2,5,20),
+        'img' => 'maid-' . $faker->numberBetween(1,5)
+    ];
+});
+$factory->define(App\WorkHours::class, function (Faker\Generator $faker) {
+    $start = $faker->numberBetween(6,15);
+    $end = $start + $faker->numberBetween(4,8);
+    return [
+        'start' => $start . ':00:00',
+        'end' => $end . ':00:00'
+    ];
+});
+

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cleaning service booking system">
     <meta name="author" content="Kaspar Martin Suursalu">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="../../favicon.ico">
 
     <title>Cover Template for Bootstrap</title>
@@ -17,7 +18,6 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/timedropper.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/datedropper.min.css')}}">
-    <link href="datedropper.css" rel="stylesheet" type="text/css" />
     <link href="{{asset('css/cover.css')}}" rel="stylesheet">
     <!-- Style Overrides -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -56,6 +56,7 @@
                             <p class="lead">Finding cleaner is as simple as making a mess.</p>
                             <p class="lead">
                                 <a href="#item2" class="btn btn-lg btn-default">Find now</a>
+
                             </p>
                         </div>
 
@@ -71,16 +72,37 @@
             <div class="content">
                 <div id="floating-panel">
                     <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Phone:</label>
+                        <input type="text" id="phone" name="phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Email:</label>
+                        <input type="text" id="email" name="email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Time:</label>
+                        <input type="text" id="date" name="date" data-theme="app" />
+                        <input type="text" id="time" />
+
+                    </div>
+                    <div class="form-group">
                         <label for="address">Address:</label>
                         <input id="address" name="address" type="textbox" placeholder="Address" onFocus="geolocate()">
                     </div>
                     <div class="form-group">
                         <label for="address">Time:</label>
                         <input type="text" id="date" data-theme="app" />
-                        <input type="text" id="alarm" />
-
+                        <input type="text" id="time" />
                     </div>
-
+                    <div class="form-group">
+                        <label for="address">Until:</label>
+                        <input type="text" id="until" />
+                    </div>
+                    <a href="#" id="maids" class="btn btn-lg btn-default">Find now</a>
                 </div>
             </div>
         </div>
@@ -163,33 +185,50 @@
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Jquery v1.11.1 -->
 <script src="{{asset('js/jquery.js')}}"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/jquery.scrollTo.js')}}"></script>
 <script src="{{asset('js/timedropper.min.js')}}"></script>
 <script src="{{asset('js/datedropper.min.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRGfHgRLdHR_eOODss3IqujtskAUUJPq4&libraries=places&callback=initMap" async defer></script>
-<script>$( "#alarm" ).timeDropper({backgroundColor: "#A0785F", primaryColor: "#fff", borderColor: "#A4EAEC"});</script>
+<script>
+    $('#maids').on('click', function(){
+
+        start = new Date($('#date').val() + ' ' + $('#time').val()).getTime() / 1000;
+        end = new Date($('#date').val() + ' ' + $('#until').val()).getTime() / 1000;
+        $.ajax({
+            type: 'POST',
+            headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+            url: 'getMaids',
+            data: { start: start, end: end, county: 'Harjumaa'}
+        })
+                .done(function(data){
+                    console.log( data );
+                })
+                .error(function(data){
+                    console.log( data );
+                });
+    });
+</script>
+<script>
+    $( "#time" ).timeDropper({backgroundColor: "#A0785F", primaryColor: "#fff", borderColor: "#A4EAEC"});
+    $( "#until" ).timeDropper({backgroundColor: "#A0785F", primaryColor: "#fff", borderColor: "#A4EAEC"});
+</script>
 <script>
     $('#date').dateDropper();
 </script>
     <script>
         var placeSearch, autocomplete;
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
-            center: {lat: -34.397, lng: 150.644}
-        });
-        var geocoder = new google.maps.Geocoder();
+
         autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('address')),
             {types: ['geocode']});
         autocomplete.addListener('place_changed', fillInAddress);
         // When the user selects an address from the dropdown, populate the address
         // fields in the form.
-        autocomplete.addListener('place_changed', geocodeAddress(geocoder, map));
     }
 
     function fillInAddress() {
