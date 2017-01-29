@@ -15,8 +15,8 @@ class CreateWorkhoursTable extends Migration
     {
         Schema::create('work_hours', function (Blueprint $table) {
             $table->increments('id');
-            $table->time('start');
-            $table->time('end');
+            $table->bigInteger('start')->nullable();
+            $table->bigInteger('end')->nullable();
             $table->integer('day');
             $table->integer('maid_id')->unsigned();;
             $table->foreign('maid_id')->references('id')->on('maids')->onDelete('cascade');

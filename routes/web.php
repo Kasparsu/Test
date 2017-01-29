@@ -13,3 +13,6 @@
 
 Route::get('/', 'ReservationController@index');
 Route::post('/getMaids', 'ReservationController@getMaids');
+Route::post('/saveReservation', 'ReservationController@saveReservation');
+Route::get('/ticket/{token}', 'ReservationController@getReservation');
+Route::post('/ticket/cancel', 'ReservationController@deleteReservation');

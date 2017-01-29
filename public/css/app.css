@@ -1,58 +1,81 @@
 body {
     background: cadetblue;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 h3 {
     color: darkgrey;
 }
+
 h1 {
     color: burlywood;
 }
-body {
-    height:100%;
-    width:100%;
-    margin:0;padding:0;
-    overflow:hidden;
-}
-.form-group{
-    margin: auto;
-    width: 50%;
-    display: inline-flex;
-}
-#date {
-    width:80%
-}
-#time {
-    width:20%
-}
 
-.products {
+
+
+/* maid cards */
+.maids {
     display: flex;
     flex-wrap: wrap;
     margin: auto;
     width: 100%;
-    padding:30px;
+    padding: 30px;
 }
-.product-card {
+
+.maid-card {
     margin-right: 30px;
     flex-grow: 1;
     flex-basis: 16%;
-    display: flex; /* so child elements can use flexbox stuff too! */
+    display: flex;
 
 }
-.product-card:hover{
+
+.maid-card:hover {
     background: white;
+    cursor: pointer;
 }
-.product-image img {
+
+.maid-image img {
     max-width: 50%;
 }
-.product-info {
+
+.maid-info {
     margin-top: auto;
+    width: 150px;
 }
-.products .product-card:first-child,
-.products .product-card:nth-child(2) {
+
+.maids .maid-card:first-child,
+.maids .maid-card:nth-child(2) {
     flex: 2 46%;
 }
+
+/* forms */
+.form-group {
+    margin: auto;
+    width: 50%;
+    display: inline-flex;
+}
+
+#date {
+    width: 80%
+}
+
+#time {
+    width: 20%
+}
+label {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: large;
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
 input {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -68,63 +91,72 @@ input {
     font: 16px Arial, Helvetica, sans-serif;
     height: 45px;
 }
+
 .site-wrapper-inner {
     display: block;
 }
-#map {
-    width: 100%;
-    height: 400px;
-    background-color: grey;
+/* !important kinda nessesary*/
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px cadetblue inset !important;
+    -webkit-text-fill-color: white !important;
+    margin-bottom: 10px !important;
+    font: 16px Arial, Helvetica, sans-serif !important;
+    border-bottom: 1px solid #ddd !important;
+    color: white !important;
 }
+
 .btn {
-    margin:30px;
-    width: 10%;
+    margin: auto;
+    width: auto;
 }
+
 #wrapper {
-    width:100%;
-    height:100%;
-    background-color:cadetblue;
-    overflow:hidden;
+    width: 100%;
+    height: 100%;
+    background-color: cadetblue;
+    overflow: hidden;
 }
 
 #mask {
-    width:500%;
-    height:100%;
-    background-color:cadetblue;
+    width: 500%;
+    height: 100%;
+    background-color: cadetblue;
 }
 
 .item {
-    width:20%;
-    height:100%;
-    float:left;
-    background-color:cadetblue;
+    width: 20%;
+    height: 100%;
+    float: left;
+    background-color: cadetblue;
 }
-
 
 .content {
-    height:400px;
-    top:20%;
-    margin:0 auto;
-    position:relative;
+    height: 400px;
+    top: 20%;
+    margin: 0 auto;
+    position: relative;
 }
-
 
 .clear {
-    clear:both;
+    clear: both;
 }
 
+/* datedropper */
 div.datedropper.app {
     border-radius: 6px;
     width: 166px;
 }
+
 div.datedropper.app .picker {
     border-radius: 6px;
     box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.1);
 }
+
 div.datedropper.app .pick-l {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
+
 div.datedropper.app:before,
 div.datedropper.app .pick-submit,
 div.datedropper.app .pick-lg-b .pick-sl:before,
@@ -132,21 +164,25 @@ div.datedropper.app .pick-m,
 div.datedropper.app .pick-lg-h {
     background-color: #A0785F;
 }
+
 div.datedropper.app .pick-y.pick-jump,
 div.datedropper.app .pick li span,
 div.datedropper.app .pick-lg-b .pick-wke,
 div.datedropper.app .pick-btn {
     color: #A0785F;
 }
+
 div.datedropper.app .picker,
 div.datedropper.app .pick-l {
     background-color: #FFF;
 }
+
 div.datedropper.app .picker,
 div.datedropper.app .pick-arw,
 div.datedropper.app .pick-l {
     color: #4D4D4D;
 }
+
 div.datedropper.app .pick-m,
 div.datedropper.app .pick-m .pick-arw,
 div.datedropper.app .pick-lg-h,
@@ -154,15 +190,28 @@ div.datedropper.app .pick-lg-b .pick-sl,
 div.datedropper.app .pick-submit {
     color: #FFF;
 }
+
 div.datedropper.app.picker-tiny:before,
 div.datedropper.app.picker-tiny .pick-m {
     background-color: #FFF;
 }
+
 div.datedropper.app.picker-tiny .pick-m,
 div.datedropper.app.picker-tiny .pick-m .pick-arw {
     color: #4D4D4D;
 }
+
 div.datedropper.app.picker-lkd .pick-submit {
     background-color: #FFF;
     color: #4D4D4D;
+}
+
+/* slider */
+.bx-wrapper .bx-viewport {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+
+    background: inherit;
 }

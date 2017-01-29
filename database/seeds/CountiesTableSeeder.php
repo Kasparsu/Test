@@ -11,7 +11,7 @@ class CountiesTableSeeder extends Seeder
      */
     public function run()
     {
-        $counties = ['Harjumaa', 'Pärnumaa', 'Tartumaa'];
+        $counties = ['Harju Maakond', 'Pärnu Maakond', 'Tartu Maakond'];
         foreach($counties as $name) {
             $county = new \App\County();
             $county->county = $name;

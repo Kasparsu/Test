@@ -11,7 +11,7 @@ class MaidsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Maid::class, 20)->create()->each(function ($u) {
+        factory(App\Maid::class, 50)->create()->each(function ($u) {
             for($i = 0; $i<=6; $i++) {
                 $workHour = factory(App\WorkHours::class)->make();
                 $workHour->day = $i;

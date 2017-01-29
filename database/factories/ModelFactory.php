@@ -36,8 +36,8 @@ $factory->define(App\WorkHours::class, function (Faker\Generator $faker) {
     $start = $faker->numberBetween(6,15);
     $end = $start + $faker->numberBetween(4,8);
     return [
-        'start' => $start . ':00:00',
-        'end' => $end . ':00:00'
+        'start' => strtotime('01/01/1970' . $start . ':00:00'),
+        'end' => strtotime('01/01/1970' . $end . ':00:00')
     ];
 });
 
