@@ -23,11 +23,11 @@ class ReservationController extends Controller
         $foo4 = strtotime('01/01/1970' . $date->format('H:i:s'));
         $list =  Maid::whereHas('workhours', function ($query) use ($foo3, $foo4) {
             $query->where('start','<=' ,$foo3)->where('end','>=' ,$foo4);
-        })->whereDoesntHave('reservations', function ($query) use ($foo3, $foo4) {
-            $query->whereBetween('start', [$foo3, $foo4])->orWhereBetween('end', [$foo3, $foo4]);
+        })->whereDoesntHave('reservations', function ($query) use ($foo, $foo2) {
+            $query->whereBetween('start', [$foo, $foo2])->orWhereBetween('end', [$foo, $foo2]);
         })->whereHas('counties', function ($query) use ($bar) {
             $query->where('county', $bar);
-        })->get();
+        })->withCount('reservations')->orderBy('reservations_count', 'asc')->get();
 
         return $list;
 

@@ -43,34 +43,26 @@ function makeMaidCard(id, name, img, rate) {
 
 $('#confirm').on('click', function (e) {
     e.preventDefault();
-    start = new Date($('#date').val() + ' ' + $('#from').val()).getTime() / 1000;
-    end = new Date($('#date').val() + ' ' + $('#until').val()).getTime() / 1000;
-    address = $('#confirm-address').val();
-    name = $('#confirm-name').val();
-    email = $('#confirm-email').val();
-    phone = $('#confirm-phone').val();
-    maid = $('#confirm-maid').attr('data-content');
-    rate = parseInt($('#confirm-rate').val());
     $.ajax({
         type: 'POST',
         headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-        url: 'saveReservation',
+        url: 'http://' + $(location).attr('hostname') + '/saveReservation',
         data: {
-            start: start,
-            end: end,
-            address: address,
-            name: name,
-            email: email,
-            phone: phone,
-            maid: maid,
-            rate: rate
+            start: new Date($('#date').val() + ' ' + $('#from').val()).getTime() / 1000,
+            end:  new Date($('#date').val() + ' ' + $('#until').val()).getTime() / 1000,
+            address: $('#confirm-address').val(),
+            name: $('#confirm-name').val(),
+            email: $('#confirm-email').val(),
+            phone: $('#confirm-phone').val(),
+            maid: $('#confirm-maid').attr('data-content'),
+            rate:  parseFloat($('#confirm-rate').val())
         }
     }).done(function (data) {
         $('a[href=#item4]').parent().removeClass('active');
         $('a[href=#item5]').parent().addClass('active');
         $('a[href=#item5]').parent().removeClass('disabled');
         $('#wrapper').scrollTo('#item5', 800);
-        window.history.pushState("object or string", "Title", 'ticket/' + data.token);
+        window.history.pushState("object or string", "Title", 'http://' + $(location).attr('hostname') + '/ticket/' + data.token);
         $('#reservation-url').val($(location).attr('hostname') + '/ticket/' + data.token);
         $('#reservation-name').val(data.name);
         $('#reservation-phone').val(data.phone);
@@ -98,7 +90,7 @@ $('#maids').on('click', function (e) {
         $.ajax({
             type: 'POST',
             headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-            url: 'getMaids',
+            url: 'http://' + $(location).attr('hostname') + '/getMaids',
             data: {
                 start: start,
                 end: end,
